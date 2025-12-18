@@ -13,13 +13,12 @@ public class SupplyOperation implements OperationHandler {
 
     @Override
     public void handle(FruitTransaction transaction) {
-        storage.getStorage().putIfAbsent(transaction.getFruit(), 0);
-
-        storage.getStorage().entrySet().stream()
-                .filter(entry
-                        -> entry.getKey().equals(transaction.getFruit()))
-                .forEach(entry
-                        -> entry.setValue(entry.getValue()
-                        + transaction.getQuantity()));
+        String fruit = transaction.getFruit();
+        if (!storage.findFruit(fruit)) {
+            storage.addFruit(transaction.getFruit(), 0);
+        }
+        int currentQuantity = storage.getFruitQuantity(fruit);
+        int purchaseQuantity = transaction.getQuantity();
+        storage.addFruit(fruit, currentQuantity + purchaseQuantity);
     }
 }

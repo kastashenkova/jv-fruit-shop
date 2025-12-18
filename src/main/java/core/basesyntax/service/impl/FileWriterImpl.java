@@ -20,7 +20,8 @@ public class FileWriterImpl implements Writer {
                      new BufferedWriter(new FileWriter(fileName))) {
             writer.write(report);
         } catch (IOException e) {
-            throw new RuntimeException("Can't write report into file: " + e);
+            throw new RuntimeException(
+                    "Can't write report into file: " + fileName, e);
         }
     }
 }

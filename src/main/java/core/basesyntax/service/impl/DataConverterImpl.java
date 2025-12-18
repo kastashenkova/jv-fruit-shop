@@ -69,7 +69,7 @@ public class DataConverterImpl implements DataConverter {
             quantity = Integer.parseInt(value);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
-                    "Fruit quantity is invalid: " + e);
+                    "Fruit quantity is invalid: " + value, e);
         }
         if (quantity < 0) {
             throw new IllegalArgumentException(

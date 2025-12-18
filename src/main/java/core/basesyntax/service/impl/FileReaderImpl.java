@@ -32,7 +32,7 @@ public class FileReaderImpl implements Reader {
             return lines;
         } catch (IOException e) {
             throw new RuntimeException(
-                    "Can't read info from file: " + e);
+                    "Can't read info from file: ", e);
         }
     }
 }

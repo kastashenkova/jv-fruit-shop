@@ -14,16 +14,16 @@ public class PurchaseOperation implements OperationHandler {
     @Override
     public void handle(FruitTransaction transaction) {
         String fruit = transaction.getFruit();
-        if (!storage.getStorage().containsKey(fruit)) {
+        if (!storage.findFruit(fruit)) {
             throw new IllegalArgumentException("Fruit " + fruit + " not found");
         }
-        int currentQuantity = storage.getStorage().get(fruit);
+        int currentQuantity = storage.getFruitQuantity(fruit);
         int purchaseQuantity = transaction.getQuantity();
         if (currentQuantity < purchaseQuantity) {
             throw new IllegalArgumentException(
                     "Purchase quantity less than current quantity in storage: "
                             + currentQuantity + " < " + purchaseQuantity);
         }
-        storage.getStorage().put(fruit, currentQuantity - purchaseQuantity);
+        storage.addFruit(fruit, currentQuantity - purchaseQuantity);
     }
 }
