@@ -1,5 +1,7 @@
 package core.basesyntax.model;
 
+import core.basesyntax.exception.IllegalOperationException;
+
 public class FruitTransaction {
     private Operation operation;
     private String fruit;
@@ -46,12 +48,16 @@ public class FruitTransaction {
         }
 
         public static Operation fromCode(String code) {
+            if (code == null || code.trim().isEmpty()) {
+                throw new IllegalOperationException(
+                        "Operation code cannot be null or empty");
+            }
             for (Operation operation : Operation.values()) {
                 if (operation.code.equals(code)) {
                     return operation;
                 }
             }
-            throw new IllegalArgumentException("Unknown operation code: " + code);
+            throw new IllegalOperationException("Unknown operation code: " + code);
         }
     }
 }

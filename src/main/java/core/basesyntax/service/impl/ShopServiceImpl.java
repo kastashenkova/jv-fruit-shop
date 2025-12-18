@@ -1,5 +1,6 @@
 package core.basesyntax.service.impl;
 
+import core.basesyntax.exception.IllegalOperationException;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.ShopService;
 import core.basesyntax.strategy.OperationStrategy;
@@ -14,8 +15,15 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public void process(List<FruitTransaction> transactions) {
-        transactions.forEach(transaction
-                -> operationStrategy.getOperationHandler(
-                        transaction.getOperation()).handle(transaction));
+        if (transactions == null || transactions.isEmpty()) {
+            throw new IllegalOperationException("Transactions list cannot be null or empty");
+        }
+        transactions.forEach(transaction -> {
+            if (transaction == null) {
+                throw new IllegalArgumentException("Transaction cannot be null");
+            }
+            operationStrategy.getOperationHandler(
+                    transaction.getOperation()).handle(transaction);
+        });
     }
 }
