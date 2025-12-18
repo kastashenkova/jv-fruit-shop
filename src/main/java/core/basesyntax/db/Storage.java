@@ -10,16 +10,11 @@ public class Storage {
     }
 
     public int getFruitQuantity(String fruitName) {
-        return storage.get(fruitName);
+        return storage.getOrDefault(fruitName, 0);
     }
 
     public boolean findFruit(String fruitName) {
-        for (Map.Entry<String, Integer> entry : storage.entrySet()) {
-            if (entry.getKey().equals(fruitName)) {
-                return true;
-            }
-        }
-        return false;
+        return storage.containsKey(fruitName);
     }
 
     public void addFruit(String fruitName, int quantity) {

@@ -13,7 +13,7 @@ public class FileReaderImpl implements Reader {
     public List<String> read(String fileName) {
         if (fileName == null || fileName.isEmpty()) {
             throw new IllegalArgumentException(
-                    "File name cannot be null or empty");
+                    "File name cannot be null or empty" + fileName);
         }
 
         File file = new File(fileName);
@@ -32,7 +32,7 @@ public class FileReaderImpl implements Reader {
             return lines;
         } catch (IOException e) {
             throw new RuntimeException(
-                    "Can't read info from file: ", e);
+                    "Can't read info from file: " + fileName, e);
         }
     }
 }
