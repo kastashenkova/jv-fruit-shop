@@ -1,6 +1,5 @@
 package core.basesyntax.service.impl;
 
-import core.basesyntax.exception.IllegalOperationException;
 import core.basesyntax.service.Reader;
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,13 +12,13 @@ public class FileReaderImpl implements Reader {
     @Override
     public List<String> read(String fileName) {
         if (fileName == null || fileName.isEmpty()) {
-            throw new IllegalOperationException(
+            throw new IllegalArgumentException(
                     "File name cannot be null or empty");
         }
 
         File file = new File(fileName);
         if (!file.exists()) {
-            throw new IllegalOperationException(
+            throw new RuntimeException(
                     "File not found: " + fileName);
         }
         try (BufferedReader reader
@@ -27,12 +26,12 @@ public class FileReaderImpl implements Reader {
             List<String> lines = reader.lines()
                     .collect(Collectors.toList());
             if (lines.isEmpty()) {
-                throw new IllegalOperationException(
+                throw new RuntimeException(
                         "File is empty: " + fileName);
             }
             return lines;
         } catch (IOException e) {
-            throw new IllegalOperationException(
+            throw new RuntimeException(
                     "Can't read info from file: " + e);
         }
     }

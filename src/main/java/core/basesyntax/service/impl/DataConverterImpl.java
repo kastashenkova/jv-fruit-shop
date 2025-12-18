@@ -1,7 +1,5 @@
 package core.basesyntax.service.impl;
 
-import core.basesyntax.exception.IncorrectQuantityException;
-import core.basesyntax.exception.IncorrectStringException;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.DataConverter;
 import java.util.List;
@@ -48,33 +46,33 @@ public class DataConverterImpl implements DataConverter {
 
     private void validateFruitName(String value, String line) {
         if (value == null) {
-            throw new IncorrectStringException(
+            throw new RuntimeException(
                     "Fruit name is null: " + line);
         }
         if (value.isEmpty()) {
-            throw new IncorrectStringException(
+            throw new RuntimeException(
                     "Fruit name is empty: " + line);
         }
     }
 
     private int parseAndValidateQuantity(String value, String line) {
         if (value == null) {
-            throw new IncorrectStringException(
+            throw new RuntimeException(
                     "Fruit quantity is null: " + line);
         }
         if (value.isEmpty()) {
-            throw new IncorrectStringException(
+            throw new RuntimeException(
                     "Fruit quantity is empty: " + line);
         }
         int quantity;
         try {
             quantity = Integer.parseInt(value);
         } catch (NumberFormatException e) {
-            throw new IncorrectQuantityException(
+            throw new IllegalArgumentException(
                     "Fruit quantity is invalid: " + e);
         }
         if (quantity < 0) {
-            throw new IncorrectQuantityException(
+            throw new IllegalArgumentException(
                     "Fruit quantity is negative: " + line);
         }
         return quantity;

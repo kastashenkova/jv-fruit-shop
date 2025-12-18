@@ -1,7 +1,6 @@
 package core.basesyntax.service.impl;
 
-import core.basesyntax.dp.Storage;
-import core.basesyntax.exception.IllegalOperationException;
+import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.strategy.OperationHandler;
 
@@ -16,12 +15,12 @@ public class PurchaseOperation implements OperationHandler {
     public void handle(FruitTransaction transaction) {
         String fruit = transaction.getFruit();
         if (!storage.getStorage().containsKey(fruit)) {
-            throw new IllegalOperationException("Fruit " + fruit + " not found");
+            throw new IllegalArgumentException("Fruit " + fruit + " not found");
         }
         int currentQuantity = storage.getStorage().get(fruit);
         int purchaseQuantity = transaction.getQuantity();
         if (currentQuantity < purchaseQuantity) {
-            throw new IllegalOperationException(
+            throw new IllegalArgumentException(
                     "Purchase quantity less than current quantity in storage: "
                             + currentQuantity + " < " + purchaseQuantity);
         }

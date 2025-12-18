@@ -1,6 +1,6 @@
 package core.basesyntax;
 
-import core.basesyntax.dp.Storage;
+import core.basesyntax.db.Storage;
 import core.basesyntax.model.FruitTransaction;
 import core.basesyntax.service.DataConverter;
 import core.basesyntax.service.Reader;
