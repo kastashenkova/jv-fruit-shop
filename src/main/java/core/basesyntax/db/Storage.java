@@ -3,6 +3,9 @@ package core.basesyntax.db;
 import java.util.Map;
 
 public class Storage {
+    private static final String DEFAULT_STRING = "fruit,quantity";
+    private static final String COMMA = ",";
+
     private final Map<String, Integer> storage;
 
     public Storage(Map<String, Integer> storage) {
@@ -24,12 +27,12 @@ public class Storage {
     @Override
     public String toString() {
         StringBuilder report = new StringBuilder();
-        report.append("fruit,quantity\n");
+        report.append(DEFAULT_STRING).append(System.lineSeparator());
         for (Map.Entry<String, Integer> entry : storage.entrySet()) {
             report.append(entry.getKey())
-                    .append(",")
+                    .append(COMMA)
                     .append(entry.getValue())
-                    .append("\n");
+                    .append(System.lineSeparator());
         }
         return report.toString();
     }
